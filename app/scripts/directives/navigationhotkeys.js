@@ -12,7 +12,7 @@ angular.module('navigationHotkeysApp')
   return {
     restrict: 'A',
     link: function postLink(scope, element, attrs) {
-      var allItems = [];
+      var allItems;
       var delay = parseInt(attrs.delay);
       delay = !isNaN(delay)? delay: 2000;
 
@@ -56,6 +56,9 @@ angular.module('navigationHotkeysApp')
       }
 
       scope.$on('$destroy', function(){
+        if(!allItems){
+          return;
+        }
         $(allItems).off('keydown');
         allItems = null;
       });
